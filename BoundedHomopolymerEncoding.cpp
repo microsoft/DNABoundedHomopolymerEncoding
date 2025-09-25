@@ -23,10 +23,15 @@ public:
 		initialize_number_paths(encoding_length);
 
 		max_data_len=number_paths[encoding_length][0].get_str(2).length()-1;
+#ifndef BOUNDED_HOMOPOLYMER_SILENT
 		cout<<"Max data bits that can be encoded: "<<max_data_len<<endl;
 
 		if(input_data_length>max_data_len){
 			cout<<"ERROR: input_data is too long!"<<endl;
+		}
+#endif
+
+		if(input_data_length>max_data_len){
 			return;
 		}
 	}
@@ -275,6 +280,7 @@ private:
 		return string(L-s.length(),'0')+s;
 	}
 };
+#ifndef BOUNDED_HOMOPOLYMER_NO_MAIN
 
 int main(int argc, char* argv[]){
 	srand (time(NULL));
@@ -335,3 +341,5 @@ int main(int argc, char* argv[]){
     cout << "Decoding time: "<< duration.count() << " milliseconds" << endl; 
 
 }
+
+#endif // BOUNDED_HOMOPOLYMER_NO_MAIN
